@@ -25,14 +25,9 @@ class App extends Component {
   }
 
   deleteToDo(model) {
-    console.log("Id to del " + model.index + " from " + this.state.toDoListModel.length);
-    this.state.toDoListModel.splice(model.index - 1, 1);
-    const todos = this.state.toDoListModel;
-    console.log("Elem remaining: " + todos.length);
+    console.log("Now remove this todo from the todo list, and reduce the no of todos " + model.index);
+    const todos = this.state.toDoListModel.slice(model.index);
 
-    for(let i = 0; i< todos.length; i++){
-      todos[i].index = i + 1;
-    }
     this.setState({
       toDoListModel: todos,
       numberOfToDos: this.state.numberOfToDos - 1
@@ -46,12 +41,12 @@ class App extends Component {
 
   addItem(input) {
     console.log("Intra\n");
-
+    
     let i = this.state.numberOfToDos + 1;
-    let newTodo = new TodoModel(i, this.input.value);
+    let newTodo = new TodoModel(i, input);
     let arrayitems = this.state.toDoListModel;
     arrayitems.push(newTodo);
-    this.setState({ toDoListModel: arrayitems, numberOfToDos: i, toDoInput: this.input.value })
+    this.setState({ toDoListModel: arrayitems, numberOfToDos: i })
     console.log("ToDoList: \n" + this.state.toDoListModel[0] + " \n and end \n");
     console.log("iese\n");
   }
@@ -60,7 +55,8 @@ class App extends Component {
     let toDoList = [];
     console.log("Length = " + this.state.numberOfToDos)
     for (let i = 0; i < this.state.numberOfToDos; i++) {
-      toDoList.push(<TodoView key={i} todoModel={this.state.toDoListModel[i]} parentDelete={this.deleteToDo} />);
+      console.log("elem i: " + this.state.toDoListModel[i]);
+      toDoList[i] = <TodoView key={i} todoModel={this.state.toDoListModel[i]} parentDelete={this.deleteToDo} />
     }
 
     return (

@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-class ToDo extends Component {
-    sendData = () => {
-        this.props.parentCallback("Hey Popsie, How’s it going?");
-    }
+class TodoView extends Component {
+    
     render() {
         return (
-            <Card key={this.props.index} bg="light" style={{ width: '18rem' }}>
+            <Card key={this.props.todoModel.index} bg="light" style={{ width: '18rem' }}>
                 <Card.Header>
                     <Button variant="outline-success">√</Button>
-                    Todo no {this.props.index}
-                    <Button variant="outline-danger" onClick={() => this.sendData(this.props.index)}>X</Button>
+                    Todo no {this.props.todoModel.index}
+                    <Button variant="outline-danger" onClick={() => this.props.parentDelete(this.props.todoModel)}>X</Button>
                 </Card.Header>
                 <Card.Body>
                     <Card.Title>
-                        {this.props.value}
+                        {this.props.todoModel.value}
                     </Card.Title>
                     <Card.Text>
                     </Card.Text>
@@ -25,4 +23,4 @@ class ToDo extends Component {
     }
 }
 
-export default ToDo;
+export default TodoView;
